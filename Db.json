@@ -2,20 +2,17 @@
     "Lessons": [
         {
             "name": "Test1",
-            "startDate": "2022/11/01",
-            "endDate": "2022/11/02",
+            "date": "2022/11/01",
             "capacity": "1"
         }, 
         {
             "name": "Test2",
-            "startDate": "2022/11/03",
-            "endDate": "2022/11/04",
-            "capacity": "2"
+            "date": "2022/11/03",
+            "capacity": "1"
         }, 
         {
             "name": "Test3",
-            "startDate": "2022/11/05",
-            "endDate": "2022/11/06",
+            "date": "2022/11/05",
             "capacity": "3"
         }
     ],
@@ -27,11 +24,11 @@
         }, 
         {
             "name": "Test2",
-            "startDate": "2022/11/03"
+            "date": "2022/11/03"
         }, 
         {
             "name": "Test3",
-            "startDate": "2022/11/05"
+            "date": "2022/11/05"
         }
     ]
 }
