@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controllers;
+
 class Lesson
 {
     public function create(): string

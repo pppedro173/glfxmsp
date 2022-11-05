@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 class Router
 {
     protected $routes = [];
@@ -34,8 +36,7 @@ class Router
                 throw new \Exception('route not found', 404);
             }
 
-            $controller = $this->convertToPascalCase($this->params['controller']);
-
+            $controller = 'App\Controllers\\' .$this->convertToPascalCase($this->params['controller']);
 
             if(! class_exists($controller)){
                 throw new \Exception('Controller class ' . $controller . ' not found.', 500);
@@ -54,7 +55,7 @@ class Router
 
             echo json_encode(['data' => $controllerObj->$action()]);
 
-        } catch (Exception $e){
+        } catch (\Exception $e){
             header('Content-Type: application/json; charset=utf-8', false, $e->getCode());
 
             echo json_encode(['errorMessage' => $e->getMessage()]);

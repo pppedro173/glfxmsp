@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controllers;
+
 class Booking
 {
     public function create(): string

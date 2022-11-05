@@ -1,11 +1,14 @@
 <?php
 
-require '../Core/Router.php';
-require '../App/Controllers/Lesson.php';
-require '../App/Controllers/Booking.php';
+spl_autoload_register(function($class) {
+    $root = dirname(__Dir__);
+    $file = $root  .'/'. str_replace('\\', '/', $class) . '.php';
+    if(is_readable($file)){
+        require $root . '/' . str_replace('\\', '/', $class). '.php';
+    }
+});
 
-
-$router = new Router();
+$router = new Core\Router();
 
 
 $router->add('/classes', 'POST', ['controller' => 'Lesson', 'action' => 'create']);
