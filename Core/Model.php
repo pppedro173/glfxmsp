@@ -8,10 +8,16 @@ abstract class Model
 
     public static function insert (array $data): void
     {
-        $allData = self::get();
+        $file = file_get_contents('../Db.json');
+        $allData = json_decode($file, true);
 
-        array_push($allData, $data);
-        file_put_contents("../Db.json", json_encode([static::$table => $allData]));
+        $modelData = array_values($allData[static::$table]);
+
+        array_push($modelData, $data);
+        
+        $allData[static::$table] = $modelData;
+
+        file_put_contents("../Db.json", json_encode($allData));
     }
 
     public  static function get(): array

@@ -2,27 +2,36 @@
     "Lessons": [
         {
             "name": "Test1",
-            "startDate": "2022\/11\/01",
-            "endDate": "2022\/11\/02",
+            "startDate": "2022/11/01",
+            "endDate": "2022/11/02",
             "capacity": "1"
-        },
+        }, 
         {
             "name": "Test2",
-            "startDate": "2022\/11\/03",
-            "endDate": "2022\/11\/04",
+            "startDate": "2022/11/03",
+            "endDate": "2022/11/04",
             "capacity": "2"
-        },
+        }, 
         {
             "name": "Test3",
-            "startDate": "2022\/11\/05",
-            "endDate": "2022\/11\/06",
+            "startDate": "2022/11/05",
+            "endDate": "2022/11/06",
             "capacity": "3"
-        },
+        }
+    ],
+
+    "Bookings": [
         {
-            "name": "Test4",
-            "startDate": "2022\/12\/01",
-            "endDate": "2022\/12\/02",
-            "capacity": "10"
+            "name": "Test1",
+            "date": "2022/11/01"
+        }, 
+        {
+            "name": "Test2",
+            "startDate": "2022/11/03"
+        }, 
+        {
+            "name": "Test3",
+            "startDate": "2022/11/05"
         }
     ]
 }
