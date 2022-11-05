@@ -2,12 +2,14 @@
 
 namespace App\Controllers;
 
-class Booking
-{
-    public function create(): string
-    {
-        return "created Booking";
+use Core\Controller as BaseController;
 
+
+class Booking extends BaseController
+{
+    public function create(): object
+    {
+        return $this->requestData;
     }
 
     public function list(): string

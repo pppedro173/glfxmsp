@@ -25,6 +25,11 @@ $url = [
     'queryStrings' => $queryParams
 ];
 
+header('Content-Type: application/json; charset=utf-8', false, 200);
 
-$router->dispatch($path, $requestType);
+$json = file_get_contents('php://input');
+
+$data = json_decode($json);
+
+$router->dispatch($path, $requestType, $data);
 

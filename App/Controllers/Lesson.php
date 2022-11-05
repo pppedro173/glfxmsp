@@ -2,11 +2,13 @@
 
 namespace App\Controllers;
 
-class Lesson
+use Core\Controller as BaseController;
+
+class Lesson extends BaseController
 {
-    public function create(): string
+    public function create(): object
     {
-        return "created Class";
+        return $this->requestData;
     }
 
     public function list(): string

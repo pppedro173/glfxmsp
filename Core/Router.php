@@ -29,7 +29,7 @@ class Router
         return false;
     }
 
-    public function dispatch(string $path , string $type): void
+    public function dispatch(string $path , string $type, ?object $data): void
     {
         try {
             if(! $this->match($path, $type)){
@@ -42,14 +42,12 @@ class Router
                 throw new \Exception('Controller class ' . $controller . ' not found.', 500);
             }
 
-            $controllerObj = new $controller();
+            $controllerObj = new $controller($data);
             $action = $this->params['action'];
 
             if(! is_callable([$controllerObj, $action])){
                 throw new \Exception('Method ' . $action . ' not found in '. $controller, 500);
             }
-
-            //$controllerObj->$action();
 
             header('Content-Type: application/json; charset=utf-8', false, 200);
 
