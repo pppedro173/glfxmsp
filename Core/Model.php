@@ -4,34 +4,22 @@ namespace Core;
 
 abstract class Model
 {
-    abstract protected function checkData(array $data);
+    protected static $table;
 
-    public function insertInto (array $data, string $table): void
+    public static function insert (array $data): void
     {
-        try {
-            if(! $this->checkData($data)){
-                throw new \Exception('You cant insert' . print_r($data, true) . ' in ' . $table, 500);
-            }
-    
-            array_push($data[$table], $data);
-    
-            file_put_contents("Db.json", json_encode($data));
+        $allData = self::get();
 
-        } catch(\Exception $e) {
-            header('Content-Type: application/json; charset=utf-8', false, $e->getCode());
-
-            echo json_encode(['errorMessage' => $e->getMessage()]);
-            exit();
-        }
-
+        array_push($allData, $data);
+        file_put_contents("../Db.json", json_encode([static::$table => $allData]));
     }
 
-    public function getAll(string $table): array
+    public  static function get(): array
     {
-        $file = file_get_contents('Db.json');
+        $file = file_get_contents('../Db.json');
         $data = json_decode($file, true);
 
-        $all = array_values($data[$table]);
+        $all = array_values($data[static::$table]);
 
         return $all;
     }
