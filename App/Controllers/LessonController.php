@@ -4,8 +4,7 @@ namespace App\Controllers;
 
 use Core\Controller as BaseController;
 
-
-class Booking extends BaseController
+class LessonController extends BaseController
 {
     public function create(): object
     {
@@ -14,6 +13,6 @@ class Booking extends BaseController
 
     public function list(): string
     {
-        return "listing Bookings";
+        return "listing Classes";
     }
 }
