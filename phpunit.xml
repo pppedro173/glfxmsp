@@ -21,7 +21,6 @@
               processUncoveredFiles="false">
         <include>
             <directory suffix=".php">App/Services</directory>
-            <directory suffix=".php">App/Models</directory>
             <directory suffix=".php">App/Controllers</directory>
         </include>
     </coverage>

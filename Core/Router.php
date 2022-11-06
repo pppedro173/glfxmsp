@@ -55,9 +55,7 @@ class Router
             throw new \Exception('Method ' . $action . ' not found in '. $controller);
         }
 
-        header('Content-Type: application/json; charset=utf-8', false, 200);
-
-        echo json_encode(['data' => $controllerObj->$action()]); 
+        $controllerObj->$action();
     }
 
     public function getParams(): array

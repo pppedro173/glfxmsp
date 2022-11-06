@@ -22,7 +22,7 @@ abstract class Model
 
     public  static function get(): array
     {
-        $file = file_get_contents('../Db.json');
+        $file = file_get_contents('/Users/palexaso/Sites/glfxmsp/Db.json');
         $data = json_decode($file, true);
 
         $all = array_values($data[static::$table]);
