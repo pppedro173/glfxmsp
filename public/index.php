@@ -5,10 +5,10 @@ require_once '../vendor/autoload.php';
 $router = new Core\Router();
 
 
-$router->add('/classes', 'POST', ['controller' => 'Lesson', 'action' => 'create']);
-$router->add('/bookings', 'POST', ['controller' => 'Booking', 'action' => 'create']);
-$router->add('/classes', 'GET', ['controller' => 'Lesson', 'action' => 'list']);
-$router->add('/bookings', 'GET', ['controller' => 'Booking', 'action' => 'list']);
+$router->add('/classes', 'POST', ['controller' => 'LessonController', 'action' => 'create']);
+$router->add('/bookings', 'POST', ['controller' => 'BookingController', 'action' => 'create']);
+$router->add('/classes', 'GET', ['controller' => 'LessonController', 'action' => 'list']);
+$router->add('/bookings', 'GET', ['controller' => 'BookingController', 'action' => 'list']);
 
 $path = $_SERVER['PATH_INFO'] ?? '';
 $requestType = $_SERVER['REQUEST_METHOD'] ?? '';

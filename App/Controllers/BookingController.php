@@ -5,7 +5,7 @@ namespace App\Controllers;
 use Core\Controller as BaseController;
 
 
-class Booking extends BaseController
+class BookingController extends BaseController
 {
     public function create(): object
     {
