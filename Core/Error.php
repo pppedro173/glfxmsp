@@ -13,7 +13,7 @@ class Error
         }
     }
 
-    public static function exceptionHandler(Exception $e): void
+    public static function exceptionHandler($e): void
     {
 
         header('Content-Type: application/json; charset=utf-8', false, 500);

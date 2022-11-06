@@ -3,6 +3,7 @@
 namespace Core;
 
 use Exception;
+use Core\Response;
 
 class Router
 {
@@ -38,12 +39,8 @@ class Router
                 throw new \Exception('route not found', 404);
             }
         } catch (Exception $e) {
-            header('Content-Type: application/json; charset=utf-8', false, $e->getCode());
-
-            echo json_encode(['errorMessage' => $e->getMessage()]);
-            die();
+            Response::response($e->getCode(), ["errorMessage" => $e->getMessage()]);
         }
-
 
         $controller = 'App\Controllers\\' .$this->convertToPascalCase($this->params['controller']);
 

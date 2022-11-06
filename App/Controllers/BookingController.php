@@ -2,18 +2,24 @@
 
 namespace App\Controllers;
 
-use Core\Controller as BaseController;
-
-
-class BookingController extends BaseController
+use App\Controllers\Controller;
+class BookingController extends Controller
 {
-    public function create(): object
+    public function create(): void
     {
-        return $this->requestData;
+        try {
+            $this->success($this->requestData, 201);
+        } catch (\Exception $e) {
+            $this->failure($e->getMessage(), $e->getCode());
+        }
     }
 
-    public function list(): string
+    public function list(): void
     {
-        return "listing Bookings";
+        try {
+            $this->success("listing Bookings", 200);
+        } catch (\Exception $e) {
+            $this->failure($e->getMessage(), $e->getCode());
+        }
     }
 }
