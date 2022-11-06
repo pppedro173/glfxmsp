@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use DateInterval;
+use DatePeriod;
 use DateTime;
 
 class LessonService
@@ -12,10 +14,27 @@ class LessonService
         if(is_null($request)){
             throw new \Exception('Invalid request', 400);
         }
-        
+
         $this->validateLessonCreateRequestStruct($request);
         $this->validateLessonDataTypes($request);
         $this->validateLessonDataConstraints($request);
+    }
+
+    public function datesBooked(?array $lessons, string $startDate, string $enDate): void
+    {
+        $period = new DatePeriod(
+            new DateTime($startDate),
+            new DateInterval('P1D'),
+            new DateTime($enDate)
+       );
+       
+       $dates = array_column($lessons, 'date');
+
+       foreach($period as $key => $value){
+        if(in_array($value->format('Y-m-d'), $dates)){
+            throw new \Exception('You cant select a date range with allready booked classes in it.', 400);
+        }
+       }
     }
 
     private function validateLessonCreateRequestStruct(object $request): void
@@ -47,8 +66,6 @@ class LessonService
         if(! is_int($lessonData->capacity)){
             throw new \Exception('Class capacity has to be a number', 400);
         }
-
-        
     }
 
     private function validateLessonDataConstraints(object $lessonData): void

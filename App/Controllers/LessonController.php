@@ -23,9 +23,11 @@ class LessonController extends BaseController
     {
         try {
             $this->lessonService->validateData($this->requestData);
+            $this->lessonService->datesBooked(Lesson::get(),$this->requestData->startDate, $this->requestData->endDate);
 
             $startDate = new DateTime(date('Y-m-d', strtotime($this->requestData->startDate)));
             $endDate = new DateTime(date('Y-m-d', strtotime($this->requestData->endDate)));
+
             $lessonsArr = [];
             $lesson = [
                 'name' => $this->requestData->name,
@@ -34,6 +36,7 @@ class LessonController extends BaseController
             ];
 
             $endDate->modify('+1 day');
+            
             while($startDate->diff($endDate)->days != 0){
                 Lesson::insert($lesson);
                 array_push($lessonsArr, $lesson);
