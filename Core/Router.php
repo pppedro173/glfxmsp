@@ -2,6 +2,9 @@
 
 namespace Core;
 
+use Exception;
+use Core\Response;
+
 class Router
 {
     protected $routes = [];
@@ -35,30 +38,26 @@ class Router
             if(! $this->match($path, $type)){
                 throw new \Exception('route not found', 404);
             }
+        } catch (Exception $e) {
+            Response::response($e->getCode(), ["errorMessage" => $e->getMessage()]);
+        }
 
-            $controller = 'App\Controllers\\' .$this->convertToPascalCase($this->params['controller']);
+        $controller = 'App\Controllers\\' .$this->convertToPascalCase($this->params['controller']);
 
-            if(! class_exists($controller)){
-                throw new \Exception('Controller class ' . $controller . ' not found.', 500);
-            }
+        if(! class_exists($controller)){
+            throw new \Exception('Controller class ' . $controller . ' not found.');
+        }
 
-            $controllerObj = new $controller($data);
-            $action = $this->params['action'];
+        $controllerObj = new $controller($data);
+        $action = $this->params['action'];
 
-            if(! is_callable([$controllerObj, $action])){
-                throw new \Exception('Method ' . $action . ' not found in '. $controller, 500);
-            }
+        if(! is_callable([$controllerObj, $action])){
+            throw new \Exception('Method ' . $action . ' not found in '. $controller);
+        }
 
-            header('Content-Type: application/json; charset=utf-8', false, 200);
+        header('Content-Type: application/json; charset=utf-8', false, 200);
 
-            echo json_encode(['data' => $controllerObj->$action()]);
-
-        } catch (\Exception $e){
-            header('Content-Type: application/json; charset=utf-8', false, $e->getCode());
-
-            echo json_encode(['errorMessage' => $e->getMessage()]);
-            exit();
-        } 
+        echo json_encode(['data' => $controllerObj->$action()]); 
     }
 
     public function getParams(): array
