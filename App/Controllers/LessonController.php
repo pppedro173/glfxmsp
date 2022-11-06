@@ -20,7 +20,7 @@ class LessonController extends BaseController
     public function create(): void
     {
         try {
-            $this->lessonService->validateData($this->requestData);
+            $this->lessonService->validateCreateRequest($this->requestData);
             
             $lessons = (object)[
                 'name' => $this->requestData->name,
@@ -28,6 +28,8 @@ class LessonController extends BaseController
                 'startDate' => $this->requestData->startDate,
                 'endDate' => $this->requestData->endDate
             ];
+
+            $this->lessonService->validateLessonsObj($lessons);
 
             $this->lessonService->datesBooked($lessons->startDate, $lessons->endDate);
 

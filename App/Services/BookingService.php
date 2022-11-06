@@ -3,13 +3,14 @@
 namespace App\Services;
 
 use App\Models\Booking;
+use Core\Validator;
 use DateTime;
 
 class BookingService
 {
-    public function bookClass(array $booking): array
+    public function bookClass(object $booking): object
     {
-        Booking::insert($booking);
+        Booking::insert((array) $booking);
 
         return $booking;
     }
@@ -19,36 +20,21 @@ class BookingService
         return Booking::get();
     }
 
-    public  function validateData(?object $request): void
+    public  function validateCreateRequest(?object $request): void
     {
-        if(is_null($request)){
-            throw new \Exception('Invalid request', 400);
-        }
+        $validation = Validator::requestStruct($request, ['name', 'date']);
 
-        $this->validateBookingCreateRequestStruct($request);
-        $this->validateBookingDataTypes($request);
-        $this->validateBookingDataConstraints($request);
-    }
-
-    public function validateBookingCreateRequestStruct(?object $request): void
-    {
-        if(! property_exists($request, 'name')){
-            throw new \Exception('Its mandatory to provide your name', 400);
-        }
-
-        if(! property_exists($request, 'date')){
-            throw new \Exception('Its mandatory to provide a class date', 400);
+        if(! $validation->success){
+            throw new \Exception($validation->error, 400);
         }
     }
 
-    public function validateBookingDataTypes(object $booking): void
+    public function validateBookingObj(object $booking): void
     {
-        if(! is_string($booking->name)){
-            throw new \Exception('Class name has to be a string', 400);
-        }
+        $validation = Validator::dataTypes($booking, ['name' => "string", 'date' => "string"]);
 
-        if(! is_string($booking->date)){
-            throw new \Exception('Class capacity has to be a number', 400);
+        if(! $validation->success){
+            throw new \Exception($validation->error, 400);
         }
     }
 
