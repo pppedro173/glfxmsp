@@ -3,23 +3,13 @@
 namespace App\Services;
 
 use App\Models\Lesson;
+use Core\Validator;
 use DateInterval;
 use DatePeriod;
 use DateTime;
 
 class LessonService
 {
-    public  function validateData(?object $request): void
-    {
-        if(is_null($request)){
-            throw new \Exception('Invalid request', 400);
-        }
-
-        $this->validateLessonCreateRequestStruct($request);
-        $this->validateLessonDataTypes($request);
-        $this->validateLessonDataConstraints($request);
-    }
-
     public function getLessons(): array
     {
         return Lesson::get();
@@ -86,33 +76,26 @@ class LessonService
         return false;
     }
 
-    private function validateLessonCreateRequestStruct(object $request): void
+    public function validateCreateRequest(object $request): void
     {
-        if(! property_exists($request, 'name')){
-            throw new \Exception('Its mandatory to provide a class name', 400);
-        }
+        $validation = Validator::requestStruct($request, ['name', 'startDate', 'endDate', 'capacity']);
 
-        if(! property_exists($request, 'startDate')){
-            throw new \Exception('Its mandatory to provide a class startDate', 400);
-        }
-
-        if(! property_exists($request, 'endDate')){
-            throw new \Exception('Its mandatory to provide a class endDate', 400);
-        }
-
-        if(! property_exists($request, 'capacity')){
-            throw new \Exception('Its mandatory to provide a class name', 400);
+        if(! $validation->success){
+            throw new \Exception($validation->error, 400);
         }
     }
 
-    private function validateLessonDataTypes(object $lessonData): void 
+    public function validateLessonsObj(object $lessons): void 
     {
-        if(! is_string($lessonData->name)){
-            throw new \Exception('Class name has to be a string', 400);
-        }
+        $validation = Validator::dataTypes($lessons, [
+            'name' => "string", 
+            'capacity' => 'int', 
+            'startDate' => "string", 
+            'endDate' => "string"
+        ]);
 
-        if(! is_int($lessonData->capacity)){
-            throw new \Exception('Class capacity has to be a number', 400);
+        if(! $validation->success){
+            throw new \Exception($validation->error, 400);
         }
     }
 
@@ -132,10 +115,6 @@ class LessonService
 
         if($lessonData->capacity < 0){
             throw new \Exception('Invalid capacity', 400);
-        }
-
-        if(strlen($lessonData->name) > 32){
-            throw new \Exception('Class name too long', 400);
         }
     }
 }

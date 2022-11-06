@@ -27,15 +27,19 @@ class BookingController extends BaseController
     public function create(): void
     {
         try {
-            $this->bookingService->validateData($this->requestData);
+            $this->bookingService->validateCreateRequest($this->requestData);
             
-            $booking = [
+            $booking = (object) [
                 'name' => $this->requestData->name,
                 'date' => $this->requestData->date,
             ];
 
-            if(! $this->lessonService->lessonExists($booking['date'])){
-                throw new \Exception('No class avillable at date ' . $booking['date'], 404);
+            $this->bookingService->validateBookingObj($booking);
+
+            $this->bookingService->validateBookingDataConstraints($booking);
+
+            if(! $this->lessonService->lessonExists($booking->date)){
+                throw new \Exception('No class availlable at date ' . $booking->date, 404);
             }
 
             $bookingInserted = $this->bookingService->bookClass($booking);
