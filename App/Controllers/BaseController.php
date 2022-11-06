@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-use Core\Controller as BaseController;
+use Core\Controller;
 use Core\Response;
 
-abstract class Controller extends BaseController
+abstract class BaseController extends Controller
 {
     public function success($data = [], int $statusCode): void
     {

@@ -2,8 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Controllers\Controller;
-class BookingController extends Controller
+class BookingController extends BaseController
 {
     public function create(): void
     {
