@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Lesson;
 use DateInterval;
 use DatePeriod;
 use DateTime;
@@ -19,13 +20,20 @@ class LessonService
         $this->validateLessonDataConstraints($request);
     }
 
-    public function datesBooked(?array $lessons, string $startDate, string $enDate): void
+    public function getLessons(): array
+    {
+        return Lesson::get();
+    }
+
+    public function datesBooked(string $startDate, string $enDate): void
     {
         $period = new DatePeriod(
             new DateTime($startDate),
             new DateInterval('P1D'),
             new DateTime($enDate)
        );
+
+       $lessons = $this->getLessons();
        
        $dates = array_column($lessons, 'date');
 
@@ -34,6 +42,48 @@ class LessonService
             throw new \Exception('You cant select a date range with allready booked classes in it.', 400);
         }
        }
+    }
+
+    public function insertLessons(object $lessons): array
+    {
+        $startDate = new DateTime(date('Y-m-d', strtotime($lessons->startDate)));
+        $endDate = new DateTime(date('Y-m-d', strtotime($lessons->endDate)));
+
+        $lessonsArr = [];
+
+        $lesson = [
+            'name' => $lessons->name,
+            'capacity' => $lessons->capacity,
+            'date' => $startDate->format('Y-m-d')
+        ];
+
+        $endDate->modify('+1 day');
+            
+        while($startDate->diff($endDate)->days != 0){
+            Lesson::insert($lesson);
+            array_push($lessonsArr, $lesson);
+            $startDate->modify('+1 day');
+            $lesson['date'] = $startDate->format('Y-m-d');
+        }
+
+        return $lessonsArr;
+    }
+
+    public function lessonExists(string $date):bool
+    {
+        $lessons = $this->getLessons();
+        
+        if(!$lessons){
+            return false;
+        }
+       
+        $dates = array_column($lessons, 'date');
+
+        if(in_array($date, $dates)){
+            return true;
+        }
+
+        return false;
     }
 
     private function validateLessonCreateRequestStruct(object $request): void
@@ -53,7 +103,6 @@ class LessonService
         if(! property_exists($request, 'capacity')){
             throw new \Exception('Its mandatory to provide a class name', 400);
         }
-
     }
 
     private function validateLessonDataTypes(object $lessonData): void 
