@@ -1,16 +1,13 @@
 {
     "require": {
-
+        "phpunit/phpunit": "^9"
     },
 
     "autoload": {
         "psr-4": {
             "Core\\": "Core/",
-            "App\\": "App/"
+            "App\\": "App/",
+            "Tests\\": "Tests/"
         }
-    },
-
-    "require-dev": {
-        "phpunit/phpunit": "^9"
     }
 }
