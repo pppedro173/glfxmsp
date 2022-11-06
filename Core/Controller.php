@@ -7,7 +7,7 @@ abstract class Controller
 
     protected $requestData = [];
 
-    public function __construct($requestData)
+    public function __construct(?object $requestData)
     {
        $this->requestData = $requestData; 
     }

@@ -3,15 +3,31 @@
 namespace App\Controllers;
 
 use App\Models\Lesson;
+use App\Services\LessonService;
 use DateTime;
 
 class LessonController extends BaseController
 {
+    /**
+     * @var LessonService
+    */
+    protected $lessonService;
+
+    public function __construct(?object $requestData)
+    {
+        parent::__construct($requestData);
+        $this->lessonService = new LessonService;
+    }
+
     public function create(): void
     {
         try {
+            $this->lessonService->validateData($this->requestData);
+            $this->lessonService->datesBooked(Lesson::get(),$this->requestData->startDate, $this->requestData->endDate);
+
             $startDate = new DateTime(date('Y-m-d', strtotime($this->requestData->startDate)));
             $endDate = new DateTime(date('Y-m-d', strtotime($this->requestData->endDate)));
+
             $lessonsArr = [];
             $lesson = [
                 'name' => $this->requestData->name,
@@ -19,7 +35,9 @@ class LessonController extends BaseController
                 'date' => $startDate->format('Y-m-d')
             ];
 
-            while($startDate->diff($endDate)->days >= 0){
+            $endDate->modify('+1 day');
+            
+            while($startDate->diff($endDate)->days != 0){
                 Lesson::insert($lesson);
                 array_push($lessonsArr, $lesson);
                 $startDate->modify('+1 day');
