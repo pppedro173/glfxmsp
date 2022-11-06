@@ -69,6 +69,23 @@ class LessonService
         return $lessonsArr;
     }
 
+    public function lessonExists(string $date):bool
+    {
+        $lessons = $this->getLessons();
+        
+        if(!$lessons){
+            return false;
+        }
+       
+        $dates = array_column($lessons, 'date');
+
+        if(in_array($date, $dates)){
+            return true;
+        }
+
+        return false;
+    }
+
     private function validateLessonCreateRequestStruct(object $request): void
     {
         if(! property_exists($request, 'name')){
@@ -86,7 +103,6 @@ class LessonService
         if(! property_exists($request, 'capacity')){
             throw new \Exception('Its mandatory to provide a class name', 400);
         }
-
     }
 
     private function validateLessonDataTypes(object $lessonData): void 

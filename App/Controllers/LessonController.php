@@ -21,7 +21,6 @@ class LessonController extends BaseController
     {
         try {
             $this->lessonService->validateData($this->requestData);
-            $this->lessonService->datesBooked($this->requestData->startDate, $this->requestData->endDate);
             
             $lessons = (object)[
                 'name' => $this->requestData->name,
@@ -29,6 +28,8 @@ class LessonController extends BaseController
                 'startDate' => $this->requestData->startDate,
                 'endDate' => $this->requestData->endDate
             ];
+
+            $this->lessonService->datesBooked($lessons->startDate, $lessons->endDate);
 
             $lessonsInserted = $this->lessonService->insertLessons($lessons);
 
