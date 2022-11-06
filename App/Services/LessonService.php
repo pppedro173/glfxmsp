@@ -89,7 +89,7 @@ class LessonService
     {
         $validation = Validator::dataTypes($lessons, [
             'name' => "string", 
-            'capacity' => 'int', 
+            'capacity' => 'integer', 
             'startDate' => "string", 
             'endDate' => "string"
         ]);

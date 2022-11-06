@@ -37,7 +37,7 @@ class Validator
         foreach($propTypes as $key => $value){
             if($value != gettype($obj->$key)){
                 $validation->success = false;
-                $validation->error = 'Property ' . $key . ' has to be of type ' . $value;
+                $validation->error = 'Property ' . $key . ' has to be of type ' . $value . 'but has type ' . gettype($obj->$key);
                 return $validation;
             }
         }
