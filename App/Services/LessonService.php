@@ -8,7 +8,6 @@ use DateTime;
 
 class LessonService
 {
-
     public  function validateData(?object $request): void
     {
         if(is_null($request)){
@@ -80,10 +79,6 @@ class LessonService
 
         if($dtStartSate > $dtEndDate){
             throw new \Exception('end date is prior to starting date', 400);
-        }
-
-        if($lessonData->capacity > 10){
-            throw new \Exception('The max capacity is 10', 400);
         }
 
         if($lessonData->capacity < 0){
