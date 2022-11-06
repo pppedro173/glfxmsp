@@ -8,7 +8,7 @@ abstract class Model
 
     public static function insert (array $data): void
     {
-        $file = file_get_contents('../Db.json');
+        $file = file_get_contents('/Users/palexaso/Sites/glfxmsp/Db.json');
         $allData = json_decode($file, true);
 
         $modelData = array_values($allData[static::$table]);
