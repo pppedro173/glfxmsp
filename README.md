@@ -32,13 +32,15 @@ Call any of the public endpoints (Postman and curl were used to test the endpoin
 Tests
 -------
 
-- PHP UNIT was used for testing.
-
-- A script was created to generate a full coverage report, just run the script bellow and a reports directory will be generated with all the details.
-
-    composer-run-unit-tests 
+- PHPUNIT was used for testing (it's the only library/framework used all the rest is vanilla php).
 
 - IMPORTANT NOTE: Runing the unit tests cleans the Db file (creates an empty Db type setting).
+
+
+Test Report script
+------------------
+
+    composer-run-unit-tests 
 
 Requirements
 ------------
