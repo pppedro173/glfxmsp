@@ -50,9 +50,6 @@ class BookingController extends BaseController
         }
     }
 
-    /**
-    * @codeCoverageIgnore
-    */
     public function list(): string
     {
         try {

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class BookingsTest extends TestCase
 {
-    public function testGetBookingsError()
+    public function testGetBookingsError(): void
     {
         $this->emptyDb();
 
@@ -107,7 +107,7 @@ class BookingsTest extends TestCase
         $this->emptyDb();
     }
 
-    private function emptyDb()
+    private function emptyDb(): void
     {
         file_put_contents('/Users/palexaso/Sites/glfxmsp/Db.json', json_encode(["Lessons" => [], "Bookings" => []]));
     }   
