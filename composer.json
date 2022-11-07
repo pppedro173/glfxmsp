@@ -10,6 +10,7 @@
         }
     },
     "scripts": {
-        "run-unit-tests": "./vendor/bin/phpunit -d memory_limit=-1 --coverage-html reports/"
+        "run-unit-tests": "./vendor/bin/phpunit -d memory_limit=-1 --coverage-html reports/",
+        "run-unit-tests-windows": "php ./vendor/bin/phpunit -d memory_limit=-1 --coverage-html reports/"
     }
 }

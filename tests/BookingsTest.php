@@ -136,6 +136,6 @@ class BookingsTest extends TestCase
 
     private function emptyDb(): void
     {
-        file_put_contents('/Users/palexaso/Sites/glfxmsp/Db.json', json_encode(["Lessons" => [], "Bookings" => []]));
+        file_put_contents(dirname(__DIR__, 1) .'/Db.json', json_encode(["Lessons" => [], "Bookings" => []]));
     }   
 }
