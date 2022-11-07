@@ -34,22 +34,6 @@ class LessonsTest extends TestCase
         $this->assertEquals($response, $db);
     }
 
-    public function testGetLessonsSuccess(): void
-    {
-        $lessonsController = new LessonController((object)[]);
-                
-        $response = $lessonsController->list();
-
-        $file = file_get_contents('/Users/palexaso/Sites/glfxmsp/Db.json');
-        $data = json_decode($file, true);
-
-        $all = array_values($data['Lessons']);
-
-        $this->assertEquals($response, json_encode(['data' => $all]));
-
-        $this->emptyDb();
-    }
-
     public function testLessonsCreateFailures(): void
     {
         $lessonsController = new LessonController(null);
@@ -151,7 +135,7 @@ class LessonsTest extends TestCase
 
     private function emptyDb(): void
     {
-        file_put_contents('/Users/palexaso/Sites/glfxmsp/Db.json', json_encode(["Lessons" => [], "Bookings" => []]));
+        file_put_contents(dirname(__DIR__, 1) .'/Db.json', json_encode(["Lessons" => [], "Bookings" => []]));
     }
     
 }

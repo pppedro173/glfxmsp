@@ -39,11 +39,20 @@ Tests
 
 Test Report script
 ------------------
+### NOT WINDOWS
 
-    composer run-unit-tests 
+    composer run-unit-tests
+
+### WINDOWS
+
+    composer run-unit-tests-windows
 
 Requirements
 ------------
+
+### For code coverage reports
+
+If you want the Test scripts to produce the code coverage report Xdebug also has to be installed and correctly configured
 
 #### Latest Composer
 
