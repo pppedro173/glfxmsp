@@ -15,10 +15,6 @@ open a public server: php -S localhost:8000 -t public
 
 Call any of the public endpoints (Postman was used to test the endpoints and produce endpoint documentation) according to the documentation bellow
 
-"https://user-images.githubusercontent.com/34283375/200284316-80ba62d7-111e-488e-93ba-327d41c6330d.png"
-
-"https://user-images.githubusercontent.com/34283375/200284333-08d3e7d8-a1a8-4634-92ec-36a44abe159c.png"
-
 <p align="center">
     <a href="https://user-images.githubusercontent.com/34283375/200284316-80ba62d7-111e-488e-93ba-327d41c6330d.png">
         <img src="https://user-images.githubusercontent.com/34283375/200284316-80ba62d7-111e-488e-93ba-327d41c6330d.png" alt="doc1">
