@@ -8,7 +8,7 @@ abstract class Model
 
     public static function insert (array $data): void
     {
-        $file = file_get_contents('/Users/palexaso/Sites/glfxmsp/Db.json');
+        $file = file_get_contents(dirname(__DIR__, 1) .'/Db.json');
         $allData = json_decode($file, true);
 
         $modelData = array_values($allData[static::$table]);
@@ -17,12 +17,12 @@ abstract class Model
         
         $allData[static::$table] = $modelData;
 
-        file_put_contents('/Users/palexaso/Sites/glfxmsp/Db.json', json_encode($allData));
+        file_put_contents(dirname(__DIR__, 1) .'/Db.json', json_encode($allData));
     }
 
     public  static function get(): array
     {
-        $file = file_get_contents('/Users/palexaso/Sites/glfxmsp/Db.json');
+        $file = file_get_contents(dirname(__DIR__, 1) .'/Db.json');
         $data = json_decode($file, true);
 
         $all = array_values($data[static::$table]);
