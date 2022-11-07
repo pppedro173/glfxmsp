@@ -17,7 +17,7 @@ abstract class Model
         
         $allData[static::$table] = $modelData;
 
-        file_put_contents("../Db.json", json_encode($allData));
+        file_put_contents('/Users/palexaso/Sites/glfxmsp/Db.json', json_encode($allData));
     }
 
     public  static function get(): array

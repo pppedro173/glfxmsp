@@ -76,7 +76,7 @@ class LessonService
         return false;
     }
 
-    public function validateCreateRequest(object $request): void
+    public function validateCreateRequest(?object $request): void
     {
         $validation = Validator::requestStruct($request, ['name', 'startDate', 'endDate', 'capacity']);
 

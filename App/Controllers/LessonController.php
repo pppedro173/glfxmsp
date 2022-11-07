@@ -41,9 +41,6 @@ class LessonController extends BaseController
         }
     }
 
-    /**
-    * @codeCoverageIgnore
-    */
     public function list(): string
     {
         try {

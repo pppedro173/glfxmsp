@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class BookingsTest extends TestCase
 {
-    public function testGetBookings()
+    public function testGetBookingsError()
     {
         $bookingsController = new BookingController((object)[]);
                 
@@ -15,5 +15,9 @@ class BookingsTest extends TestCase
 
         $this->assertEquals($response, '{"error":"bookings not found."}');
     }
-    
+
+    private function emptyDb()
+    {
+        file_put_contents('/Users/palexaso/Sites/glfxmsp/Db.json', json_encode(["Lessons" => [], "Bookings" => []]));
+    }   
 }
