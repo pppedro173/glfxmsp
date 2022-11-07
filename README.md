@@ -27,6 +27,14 @@ Call any of the public endpoints (Postman was used to test the endpoints and pro
     </a>
 </p>
 
+Tests
+-------
+
+- PHP UNIT was used for testing.
+
+- A script was created to generate te full coverage report, just run composer-run-unit-tests and a reports directory will be generated with all the details.
+
+- IMPORTANT NOTE: Runing the unit cleans the Db file (creates an empty Db type setting).
 
 Requirements
 ------------
