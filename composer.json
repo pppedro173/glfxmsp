@@ -1,12 +1,15 @@
 {
     "require": {
-
-    },
+        "phpunit/phpunit": "^9"    },
 
     "autoload": {
         "psr-4": {
             "Core\\": "Core/",
-            "App\\": "App/"
+            "App\\": "App/",
+            "Tests\\": "Tests/"
         }
+    },
+    "scripts": {
+        "run-unit-tests": "./vendor/bin/phpunit -d memory_limit=-1 --coverage-html reports/"
     }
 }

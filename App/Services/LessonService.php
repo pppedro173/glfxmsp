@@ -76,7 +76,7 @@ class LessonService
         return false;
     }
 
-    public function validateCreateRequest(object $request): void
+    public function validateCreateRequest(?object $request): void
     {
         $validation = Validator::requestStruct($request, ['name', 'startDate', 'endDate', 'capacity']);
 
@@ -99,7 +99,7 @@ class LessonService
         }
     }
 
-    private function validateLessonDataConstraints(object $lessonData): void
+    public function validateLessonDataConstraints(object $lessonData): void
     {
         $dtStartSate = new DateTime($lessonData->startDate);
         $dtEndDate = new DateTime($lessonData->endDate);

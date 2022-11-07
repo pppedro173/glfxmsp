@@ -7,15 +7,15 @@ use Core\Response;
 
 abstract class BaseController extends Controller
 {
-    public function success($data = [], int $statusCode): void
+    public function success($data = [], int $statusCode): string
     {
         $response = ["data" => $data];
-        Response::response($statusCode, $response);
+        return Response::response($statusCode, $response);
     }
 
-    public function failure(?string $message, int $statusCode): void
+    public function failure(?string $message, int $statusCode): string
     {
         $error = ["error" => $message];
-        Response::response($statusCode, $error);
+        return Response::response($statusCode, $error);
     }
 }

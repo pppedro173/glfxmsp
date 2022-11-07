@@ -4,11 +4,16 @@ namespace Core;
 
 class Response 
 {
-    public static function response(int $statusCode, array $jsonData): void
+    public static function response(int $statusCode, array $jsonData): string
     {
-        header('Content-Type: application/json; charset=utf-8', false, $statusCode);
+        if(! headers_sent()){
+            header('Content-Type: application/json; charset=utf-8', false, $statusCode);
+        }
 
-        echo json_encode($jsonData);
-        die();
+        $response = json_encode($jsonData);
+
+        echo $response;
+
+        return $response;
     }
 }

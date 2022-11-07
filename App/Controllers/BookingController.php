@@ -24,7 +24,7 @@ class BookingController extends BaseController
         $this->bookingService = new BookingService;
     }
 
-    public function create(): void
+    public function create(): string
     {
         try {
             $this->bookingService->validateCreateRequest($this->requestData);
@@ -44,13 +44,13 @@ class BookingController extends BaseController
 
             $bookingInserted = $this->bookingService->bookClass($booking);
 
-            $this->success($bookingInserted, 200);
+            return $this->success($bookingInserted, 200);
         } catch (\Exception $e) {
-            $this->failure($e->getMessage(), $e->getCode());
+            return $this->failure($e->getMessage(), $e->getCode());
         }
     }
 
-    public function list(): void
+    public function list(): string
     {
         try {
             $bookings = $this->bookingService->getBookings();
@@ -59,9 +59,9 @@ class BookingController extends BaseController
                 throw new \Exception('bookings not found.', 404);
             }
 
-            $this->success($bookings, 200);
+            return $this->success($bookings, 200);
         } catch (\Exception $e) {
-            $this->failure($e->getMessage(), $e->getCode());
+            return $this->failure($e->getMessage(), $e->getCode());
         }
     }
 }

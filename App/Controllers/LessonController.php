@@ -17,7 +17,7 @@ class LessonController extends BaseController
         $this->lessonService = new LessonService;
     }
 
-    public function create(): void
+    public function create(): string
     {
         try {
             $this->lessonService->validateCreateRequest($this->requestData);
@@ -31,17 +31,19 @@ class LessonController extends BaseController
 
             $this->lessonService->validateLessonsObj($lessons);
 
+            $this->lessonService->validateLessonDataConstraints($lessons);
+
             $this->lessonService->datesBooked($lessons->startDate, $lessons->endDate);
 
             $lessonsInserted = $this->lessonService->insertLessons($lessons);
 
-            $this->success($lessonsInserted, 200);
+            return $this->success($lessonsInserted, 200);
         } catch (\Exception $e) {
-            $this->failure($e->getMessage(), $e->getCode());
+            return $this->failure($e->getMessage(), $e->getCode());
         }
     }
 
-    public function list(): void
+    public function list(): string
     {
         try {
             $lessons = $this->lessonService->getLessons();
@@ -50,9 +52,9 @@ class LessonController extends BaseController
                 throw new \Exception('Lessons not found.', 404);
             }
 
-            $this->success($lessons, 200);
+            return $this->success($lessons, 200);
         } catch (\Exception $e) {
-            $this->failure($e->getMessage(), $e->getCode());
+            return $this->failure($e->getMessage(), $e->getCode());
         }
     }
 }
