@@ -34,11 +34,9 @@ Tests
 
 - PHP UNIT was used for testing.
 
-- A script was created to generate a full coverage report, just run 
+- A script was created to generate a full coverage report, just run the script bellow and a reports directory will be generated with all the details.
 
     composer-run-unit-tests 
-    
-and a reports directory will be generated with all the details.
 
 - IMPORTANT NOTE: Runing the unit tests cleans the Db file (creates an empty Db type setting).
 
