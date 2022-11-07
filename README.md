@@ -1,19 +1,21 @@
-glfxmsp is a take home assignment, that motivated me to build a mini-framework and an Api to book and create classes
+glfxmsp is a take home assignment, that motivated me to build a mini-framework and an Api to book and create classes.
 
 Installation / Usage
 --------------------
 
 Download and install Composer by following the [official instructions](https://getcomposer.org/download/).
 
-Download and install PHP 7.2.5 or above (all tests and development was done with php 7.4.28).
+Download and install PHP 7.2.5 or above (all tests and development were done with php 7.4.28).
 
-Run composer install
+    Run composer install
 
-Change .env DBFILE variable to the absolute path of the file Db.json in your PC (for me it was /Users/palexaso/Sites/glfxmsp/Db.json)
+    Run composer dump-autoload
 
-open a public server: php -S localhost:8000 -t public
+Open a public server: 
 
-Call any of the public endpoints (Postman was used to test the endpoints and produce endpoint documentation) according to the documentation bellow
+    php -S localhost:8000 -t public
+
+Call any of the public endpoints (Postman and curl were used to test the endpoints and produce endpoint documentation) according to the documentation bellow
 
 <p align="center">
     <a href="https://user-images.githubusercontent.com/34283375/200284316-80ba62d7-111e-488e-93ba-327d41c6330d.png">
@@ -30,11 +32,15 @@ Call any of the public endpoints (Postman was used to test the endpoints and pro
 Tests
 -------
 
-- PHP UNIT was used for testing.
+- PHPUNIT was used for testing (it's the only library/framework used all the rest is vanilla php).
 
-- A script was created to generate te full coverage report, just run composer-run-unit-tests and a reports directory will be generated with all the details.
+- IMPORTANT NOTE: Runing the unit tests cleans the Db file (creates an empty Db type setting).
 
-- IMPORTANT NOTE: Runing the unit cleans the Db file (creates an empty Db type setting).
+
+Test Report script
+------------------
+
+    composer run-unit-tests 
 
 Requirements
 ------------
