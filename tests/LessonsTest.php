@@ -46,6 +46,8 @@ class LessonsTest extends TestCase
         $all = array_values($data['Lessons']);
 
         $this->assertEquals($response, json_encode(['data' => $all]));
+
+        $this->emptyDb();
     }
 
     public function testLessonsCreateFailures()
@@ -55,6 +57,94 @@ class LessonsTest extends TestCase
         $response = $bookingsController->create();
 
         $this->assertEquals($response, '{"error":"Empty request"}');
+
+        $bookingsController = new LessonController((object)[]);
+
+        $response = $bookingsController->create();
+
+        $this->assertEquals($response, '{"error":"Request is missing property name"}');
+
+        $bookingsController = new LessonController((object)["name" => "pedro"]);
+
+        $response = $bookingsController->create();
+
+        $this->assertEquals($response, '{"error":"Request is missing property startDate"}');
+
+        $bookingsController = new LessonController((object)[
+            "name" => "pedro",
+            "startDate" => "2023-01-22"
+        ]);
+
+        $response = $bookingsController->create();
+
+        $this->assertEquals($response, '{"error":"Request is missing property endDate"}');
+
+        $bookingsController = new LessonController((object)[
+            "name" => "pedro",
+            "startDate" => "2023-01-22",
+            "endDate" => "2023-02-22"
+        ]);
+
+        $response = $bookingsController->create();
+
+        $this->assertEquals($response, '{"error":"Request is missing property capacity"}');
+
+        $bookingsController = new LessonController((object)[
+            "name" => "pedro",
+            "startDate" => "2023-01-22",
+            "endDate" => "2023-02-22",
+            "capacity" => "bananas"
+        ]);
+
+        $response = $bookingsController->create();
+
+        $this->assertEquals($response, '{"error":"Property capacity has to be of type integer but has type string"}');
+
+        $bookingsController = new LessonController((object)[
+            "name" => "pedro",
+            "startDate" => "2023-01-22",
+            "endDate" => "2023-01-21",
+            "capacity" => 10
+        ]);
+
+        $response = $bookingsController->create();
+
+        $this->assertEquals($response, '{"error":"end date is prior to starting date"}');
+
+        $bookingsController = new LessonController((object)[
+            "name" => "pedro",
+            "startDate" => "2023-01-01",
+            "endDate" => "2023-01-21",
+            "capacity" => -1
+        ]);
+
+        $response = $bookingsController->create();
+
+        $this->assertEquals($response, '{"error":"Invalid capacity"}');
+
+        $bookingsController = new LessonController((object)[
+            "name" => "pedro",
+            "startDate" => "2021-01-22",
+            "endDate" => "2023-01-21",
+            "capacity" => 11
+        ]);
+
+        $response = $bookingsController->create();
+
+        $this->assertEquals($response, '{"error":"starting date is prior to today"}');
+
+        $bookingsController = new LessonController((object)[
+            "name" => "pedro",
+            "startDate" => "2023-01-01",
+            "endDate" => "2023-01-21",
+            "capacity" => 11
+        ]);
+
+        $bookingsController->create();
+
+        $response = $bookingsController->create();
+
+        $this->assertEquals($response, '{"error":"You cant select a date range with allready booked classes in it."}');
 
         $this->emptyDb();
     }

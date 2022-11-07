@@ -31,6 +31,8 @@ class LessonController extends BaseController
 
             $this->lessonService->validateLessonsObj($lessons);
 
+            $this->lessonService->validateLessonDataConstraints($lessons);
+
             $this->lessonService->datesBooked($lessons->startDate, $lessons->endDate);
 
             $lessonsInserted = $this->lessonService->insertLessons($lessons);

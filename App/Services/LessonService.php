@@ -99,7 +99,7 @@ class LessonService
         }
     }
 
-    private function validateLessonDataConstraints(object $lessonData): void
+    public function validateLessonDataConstraints(object $lessonData): void
     {
         $dtStartSate = new DateTime($lessonData->startDate);
         $dtEndDate = new DateTime($lessonData->endDate);
