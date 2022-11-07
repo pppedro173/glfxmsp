@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class LessonsTest extends TestCase
 {
-    public function testGetClasses()
+    public function testGetClassesError(): void
     {
         $this->emptyDb();
 
@@ -18,27 +18,27 @@ class LessonsTest extends TestCase
         $this->assertEquals($response, '{"error":"Lessons not found."}');
     }
 
-    public function testCreateLessons()
+    public function testCreateLessons(): void
     {
-        $bookingsController = new LessonController((object)[
+        $lessonsController = new LessonController((object)[
             "name" => "zumba",
             "startDate" => "2023-01-01",
             "endDate" => "2023-01-31",
             "capacity" => 20
         ]);
 
-        $response = $bookingsController->create();
+        $response = $lessonsController->create();
 
-        $db = $bookingsController->list();
+        $db = $lessonsController->list();
 
         $this->assertEquals($response, $db);
     }
 
-    public function testGetLessonsSuccess()
+    public function testGetLessonsSuccess(): void
     {
-        $bookingsController = new LessonController((object)[]);
+        $lessonsController = new LessonController((object)[]);
                 
-        $response = $bookingsController->list();
+        $response = $lessonsController->list();
 
         $file = file_get_contents('/Users/palexaso/Sites/glfxmsp/Db.json');
         $data = json_decode($file, true);
@@ -50,106 +50,106 @@ class LessonsTest extends TestCase
         $this->emptyDb();
     }
 
-    public function testLessonsCreateFailures()
+    public function testLessonsCreateFailures(): void
     {
-        $bookingsController = new LessonController(null);
+        $lessonsController = new LessonController(null);
 
-        $response = $bookingsController->create();
+        $response = $lessonsController->create();
 
         $this->assertEquals($response, '{"error":"Empty request"}');
 
-        $bookingsController = new LessonController((object)[]);
+        $lessonsController = new LessonController((object)[]);
 
-        $response = $bookingsController->create();
+        $response = $lessonsController->create();
 
         $this->assertEquals($response, '{"error":"Request is missing property name"}');
 
-        $bookingsController = new LessonController((object)["name" => "pedro"]);
+        $lessonsController = new LessonController((object)["name" => "pedro"]);
 
-        $response = $bookingsController->create();
+        $response = $lessonsController->create();
 
         $this->assertEquals($response, '{"error":"Request is missing property startDate"}');
 
-        $bookingsController = new LessonController((object)[
+        $lessonsController = new LessonController((object)[
             "name" => "pedro",
             "startDate" => "2023-01-22"
         ]);
 
-        $response = $bookingsController->create();
+        $response = $lessonsController->create();
 
         $this->assertEquals($response, '{"error":"Request is missing property endDate"}');
 
-        $bookingsController = new LessonController((object)[
+        $lessonsController = new LessonController((object)[
             "name" => "pedro",
             "startDate" => "2023-01-22",
             "endDate" => "2023-02-22"
         ]);
 
-        $response = $bookingsController->create();
+        $response = $lessonsController->create();
 
         $this->assertEquals($response, '{"error":"Request is missing property capacity"}');
 
-        $bookingsController = new LessonController((object)[
+        $lessonsController = new LessonController((object)[
             "name" => "pedro",
             "startDate" => "2023-01-22",
             "endDate" => "2023-02-22",
             "capacity" => "bananas"
         ]);
 
-        $response = $bookingsController->create();
+        $response = $lessonsController->create();
 
         $this->assertEquals($response, '{"error":"Property capacity has to be of type integer but has type string"}');
 
-        $bookingsController = new LessonController((object)[
+        $lessonsController = new LessonController((object)[
             "name" => "pedro",
             "startDate" => "2023-01-22",
             "endDate" => "2023-01-21",
             "capacity" => 10
         ]);
 
-        $response = $bookingsController->create();
+        $response = $lessonsController->create();
 
         $this->assertEquals($response, '{"error":"end date is prior to starting date"}');
 
-        $bookingsController = new LessonController((object)[
+        $lessonsController = new LessonController((object)[
             "name" => "pedro",
             "startDate" => "2023-01-01",
             "endDate" => "2023-01-21",
             "capacity" => -1
         ]);
 
-        $response = $bookingsController->create();
+        $response = $lessonsController->create();
 
         $this->assertEquals($response, '{"error":"Invalid capacity"}');
 
-        $bookingsController = new LessonController((object)[
+        $lessonsController = new LessonController((object)[
             "name" => "pedro",
             "startDate" => "2021-01-22",
             "endDate" => "2023-01-21",
             "capacity" => 11
         ]);
 
-        $response = $bookingsController->create();
+        $response = $lessonsController->create();
 
         $this->assertEquals($response, '{"error":"starting date is prior to today"}');
 
-        $bookingsController = new LessonController((object)[
+        $lessonsController = new LessonController((object)[
             "name" => "pedro",
             "startDate" => "2023-01-01",
             "endDate" => "2023-01-21",
             "capacity" => 11
         ]);
 
-        $bookingsController->create();
+        $lessonsController->create();
 
-        $response = $bookingsController->create();
+        $response = $lessonsController->create();
 
         $this->assertEquals($response, '{"error":"You cant select a date range with allready booked classes in it."}');
 
         $this->emptyDb();
     }
 
-    private function emptyDb()
+    private function emptyDb(): void
     {
         file_put_contents('/Users/palexaso/Sites/glfxmsp/Db.json', json_encode(["Lessons" => [], "Bookings" => []]));
     }

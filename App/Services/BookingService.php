@@ -46,10 +46,6 @@ class BookingService
         if($date < $today){
             throw new \Exception('booking date is prior to today', 400);
         }
-
-        if(strlen($booking->name) > 256){
-            throw new \Exception('Person name too long', 400);
-        }
     }
 
 }
