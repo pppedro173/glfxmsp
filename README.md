@@ -5,13 +5,13 @@ Installation / Usage
 
 Download and install Composer by following the [official instructions](https://getcomposer.org/download/).
 
-Download and install PHP 7.2.5 or above (all tests and development was done with php 7.4.28).
+Download and install PHP 7.2.5 or above (all tests and development were done with php 7.4.28).
 
     Run composer install
 
     Run composer dump-autoload
 
-open a public server: 
+Open a public server: 
 
     php -S localhost:8000 -t public
 
@@ -34,9 +34,9 @@ Tests
 
 - PHP UNIT was used for testing.
 
-- A script was created to generate te full coverage report, just run composer-run-unit-tests and a reports directory will be generated with all the details.
+- A script was created to generate a full coverage report, just run composer-run-unit-tests and a reports directory will be generated with all the details.
 
-- IMPORTANT NOTE: Runing the unit cleans the Db file (creates an empty Db type setting).
+- IMPORTANT NOTE: Runing the unit tests cleans the Db file (creates an empty Db type setting).
 
 Requirements
 ------------
