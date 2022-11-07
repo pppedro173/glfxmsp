@@ -40,7 +40,7 @@ Tests
 Test Report script
 ------------------
 
-    composer-run-unit-tests 
+    composer run-unit-tests 
 
 Requirements
 ------------
