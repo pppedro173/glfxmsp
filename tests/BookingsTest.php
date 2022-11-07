@@ -19,6 +19,33 @@ class BookingsTest extends TestCase
         $this->assertEquals($response, '{"error":"bookings not found."}');
     }
 
+    public function testGetBookingsSuccess(): void
+    {
+        $this->emptyDb();
+
+        $lessonController = new LessonController((object)[
+            "name" => "zumba",
+            "startDate" => "2023-01-01",
+            "endDate" => "2023-01-31",
+            "capacity" => 20
+        ]);
+
+        $lessonController->create();
+
+        $bookingsController = new BookingController((object)[
+            "name" => "Pedro",
+            "date" => "2023-01-01"]
+        );
+
+        $bookingsController->create();
+
+        $response = $bookingsController->list();
+
+        $this->assertEquals($response, '{"data":[{"name":"Pedro","date":"2023-01-01"}]}');
+
+        $this->emptyDb();
+    }
+
     public function testCreateBookings(): void
     {
         $lessonController = new LessonController((object)[
