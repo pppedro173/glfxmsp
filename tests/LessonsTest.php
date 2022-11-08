@@ -9,6 +9,7 @@ class LessonsTest extends TestCase
 {
     public function testGetClassesError(): void
     {
+        $this->setOutputCallback(function() {});
         $this->emptyDb();
 
         $lessonsController = new LessonController((object)[]);
@@ -20,6 +21,7 @@ class LessonsTest extends TestCase
 
     public function testCreateLessons(): void
     {
+        $this->setOutputCallback(function() {});
         $lessonsController = new LessonController((object)[
             "name" => "zumba",
             "startDate" => "2023-01-01",
@@ -36,6 +38,7 @@ class LessonsTest extends TestCase
 
     public function testLessonsCreateFailures(): void
     {
+        $this->setOutputCallback(function() {});
         $lessonsController = new LessonController(null);
 
         $response = $lessonsController->create();

@@ -10,6 +10,7 @@ class BookingsTest extends TestCase
 {
     public function testGetBookingsError(): void
     {
+        $this->setOutputCallback(function() {});
         $this->emptyDb();
 
         $bookingsController = new BookingController((object)[]);
@@ -21,6 +22,7 @@ class BookingsTest extends TestCase
 
     public function testGetBookingsSuccess(): void
     {
+        $this->setOutputCallback(function() {});
         $this->emptyDb();
 
         $lessonController = new LessonController((object)[
@@ -48,6 +50,7 @@ class BookingsTest extends TestCase
 
     public function testCreateBookings(): void
     {
+        $this->setOutputCallback(function() {});
         $lessonController = new LessonController((object)[
             "name" => "zumba",
             "startDate" => "2023-01-01",
