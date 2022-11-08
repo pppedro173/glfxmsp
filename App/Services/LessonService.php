@@ -20,7 +20,7 @@ class LessonService
         $period = new DatePeriod(
             new DateTime($startDate),
             new DateInterval('P1D'),
-            new DateTime($enDate)
+            (new DateTime($enDate))->modify('+1 day')
        );
 
        $lessons = $this->getLessons();
